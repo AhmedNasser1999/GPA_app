@@ -1,12 +1,12 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
 class DataHelper {
-  static SharedPreferences? preferences;
-
   //kays---------------------------
   static var name = 'course name';
   static var grade = 'grade';
   static var unites = 'unites';
+
+  static SharedPreferences? preferences;
 
   static Future<void> init() async {
     preferences = await SharedPreferences.getInstance();
