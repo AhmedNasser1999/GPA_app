@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:gpa/Screens/Components/button.dart';
 import 'package:gpa/bloc/gpa_cubit.dart';
 
 class GBAHome extends StatelessWidget {
@@ -8,97 +7,158 @@ class GBAHome extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => GpaAppCubit(),
-      child: BlocConsumer<GpaAppCubit, GpaAppState>(
-        listener: (context, state) {},
-        builder: (context, state) {
-          GpaAppCubit cubit = GpaAppCubit.get(context);
-          return Scaffold(
-            backgroundColor: Colors.white,
-            body: SafeArea(
-              child: SizedBox(
+    return BlocConsumer<GpaAppCubit, GpaAppState>(
+      listener: (context, state) {},
+      builder: (context, state) {
+        GpaAppCubit cubit = BlocProvider.of<GpaAppCubit>(context);
+
+        return Scaffold(
+          appBar: AppBar(
+            title: const Text('GPA Calculator'),
+            centerTitle: true,
+          ),
+          body: Column(
+            children: [
+              // GPA Display
+              Container(
                 width: double.infinity,
+                margin: const EdgeInsets.all(16),
+                padding: const EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: Colors.indigo,
+                  borderRadius: BorderRadius.circular(10),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.5),
+                      spreadRadius: 2,
+                      blurRadius: 7,
+                      offset: const Offset(0, 3),
+                    ),
+                  ],
+                ),
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    const SizedBox(height: 15.0),
-                    Text(
-                      'Number Of Courses : ${cubit.gpaItems.length}',
-                      style: const TextStyle(
-                        fontSize: 20.0,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                    const SizedBox(height: 20.0),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Button(
-                          width: 100,
-                          onPressed: () {
-                            cubit.removeItem();
-                          },
-                          color: Colors.indigo,
-                          buttonText: 'CLEAR',
-                        ),
-                        const SizedBox(width: 70.0),
-                        Button(
-                          width: 100,
-                          onPressed: () {
-                            cubit.addItem();
-                          },
-                          color: Colors.indigo,
-                          buttonText: 'ADD',
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 15.0),
-                    const Padding(
-                      padding: EdgeInsets.only(left: 15.0, right: 40.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Expanded(child: Text('Course Name')),
-                          Text('Grade'),
-                          SizedBox(width: 45.0),
-                          Text('Units'),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(height: 10.0),
-                    Expanded(
-                      child: ListView.separated(
-                        physics: const BouncingScrollPhysics(),
-                        itemCount: cubit.gpaItems.length,
-                        separatorBuilder: (context, index) =>
-                            const SizedBox(height: 10.0),
-                        itemBuilder: (context, index) => cubit.gpaItems[index],
-                      ),
-                    ),
-                    const SizedBox(height: 10.0),
                     const Text(
-                      'GPA : 0.000',
+                      'Your GPA',
                       style: TextStyle(
-                        fontSize: 22.0,
-                        fontWeight: FontWeight.w800,
+                        color: Colors.white,
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
-                    const SizedBox(height: 10.0),
-                    Button(
-                      buttonText: 'CALCULATE',
-                      onPressed: () {},
-                      width: 200.0,
-                      color: Colors.green,
+                    const SizedBox(height: 8),
+                    Text(
+                      cubit.gpa.toStringAsFixed(2),
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 36,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
-                    const SizedBox(height: 10.0),
                   ],
                 ),
               ),
-            ),
-          );
-        },
-      ),
+
+              // Course count display
+              Container(
+                width: double.infinity,
+                margin: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+                decoration: BoxDecoration(
+                  color: Colors.indigo.shade50,
+                  borderRadius: BorderRadius.circular(8),
+                  border: Border.all(color: Colors.indigo.shade200),
+                ),
+                child: Text(
+                  'Courses: ${cubit.gpaItems.length}',
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.indigo.shade800,
+                  ),
+                ),
+              ),
+              
+              // Action buttons
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Expanded(
+                      child: ElevatedButton.icon(
+                        onPressed: () {
+                          cubit.clearAll();
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.red.shade400,
+                          foregroundColor: Colors.white,
+                          padding: const EdgeInsets.symmetric(vertical: 12),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          elevation: 2,
+                        ),
+                        icon: const Icon(Icons.clear),
+                        label: const Text('CLEAR', style: TextStyle(fontWeight: FontWeight.bold)),
+                      ),
+                    ),
+                    const SizedBox(width: 12),
+                    Expanded(
+                      child: ElevatedButton.icon(
+                        onPressed: () {
+                          cubit.addItem();
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.indigo,
+                          foregroundColor: Colors.white,
+                          padding: const EdgeInsets.symmetric(vertical: 12),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          elevation: 2,
+                        ),
+                        icon: const Icon(Icons.add),
+                        label: const Text('ADD', style: TextStyle(fontWeight: FontWeight.bold)),
+                      ),
+                    ),
+                    const SizedBox(width: 12),
+                    Expanded(
+                      child: ElevatedButton.icon(
+                        onPressed: () {
+                          cubit.calculateGPA();
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.green.shade600,
+                          foregroundColor: Colors.white,
+                          padding: const EdgeInsets.symmetric(vertical: 12),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          elevation: 2,
+                        ),
+                        icon: const Icon(Icons.calculate),
+                        label: const Text('CALCULATE', style: TextStyle(fontWeight: FontWeight.bold)),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+
+              // Course list
+              Expanded(
+                child: ListView.builder(
+                  padding: const EdgeInsets.all(8),
+                  itemCount: cubit.gpaItems.length,
+                  itemBuilder: (context, index) {
+                    return cubit.gpaItems[index];
+                  },
+                ),
+              ),
+            ],
+          ),
+        );
+      },
     );
   }
 }

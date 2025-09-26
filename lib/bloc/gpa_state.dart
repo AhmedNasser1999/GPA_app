@@ -9,8 +9,14 @@ class GpaAddItem extends GpaAppState {}
 
 class GpaRemoveItem extends GpaAppState {}
 
-class ChangeCourseNameValue extends GpaAppState {}
+class GpaDataLoaded extends GpaAppState {}
 
-class ChangeGradeValue extends GpaAppState {}
+class GpaCourseUpdated extends GpaAppState {}
 
-class ChangeUintesValue extends GpaAppState {}
+class GpaDataSaved extends GpaAppState {}
+
+class GpaCalculated extends GpaAppState {}
+
+class GpaCleared extends GpaAppState {}
+
+class GpaError extends GpaAppState {}
