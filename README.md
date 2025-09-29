@@ -2,7 +2,7 @@
 
 A modern, user-friendly Flutter application for calculating Grade Point Average (GPA) with data persistence.
 
-![GPA Calculator App Screenshot](screenshots/Simulator%20Screenshot%20-%20iPhone%2016%20Pro%20Max%20-%202025-09-26%20at%2016.02.03.png)
+![GPA Calculator App Screenshot](screenshots/Simulator Screenshot - iPhone 16 Pro Max - 2025-09-29 at 02.52.52.png)
 
 ## Features
 
