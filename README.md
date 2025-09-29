@@ -27,7 +27,7 @@ lib/
 │   └── dataHelper.dart       # Data persistence and GPA calculation logic
 ├── Screens/
 │   ├── Components/
-│   │   └── cource_Item.dart  # Course item widget for input
+│   │   └── course_Item.dart  # Course item widget for input
 │   └── home.dart             # Main screen UI
 ├── bloc/
 │   ├── gpa_cubit.dart        # State management logic
