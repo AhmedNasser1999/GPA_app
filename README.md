@@ -40,7 +40,7 @@ lib/
 1. **Data Model**: The app uses a `Course` class to store course name, grade, and credit units
 2. **State Management**: The `GpaAppCubit` manages app state and handles course data operations
 3. **Persistence**: `DataHelper` class handles saving and retrieving data using SharedPreferences
-4. **GPA Calculation**: Formula multiplies each course's grade by its units, sums them, and divides by total units
+4. **GPA Calculation**: Formula multiplies each course’s grade by its units, sums them, and divides by total units
 
 ## GPA Calculation Formula
 
