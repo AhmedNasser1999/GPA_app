@@ -78,8 +78,7 @@ class GpaAppCubit extends Cubit<GpaAppState> {
     try {
       int newIndex = gpaItems.length;
       gpaItems.add(CourseItem(index: newIndex));
-      // Add an empty course to maintain consistency
-      courses.add(Course(name: '', grade: 0.0, units: 0));
+
       saveCourses();
       emit(GpaAddItem());
     } catch (e) {
